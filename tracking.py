@@ -2,6 +2,7 @@
 
 from flask import Flask, send_file
 from flask.wrappers import Response
+import datetime
 
 app = Flask(__name__)
 
@@ -12,7 +13,7 @@ pixel = "1x1.png"
 @app.route("/pixel/<path:name>", methods=["GET"])
 def track(name: str) -> Response:
     with open(names_file, "a") as f:
-        f.write(name + "\n")
+        f.write(f"{name}: {datetime.datetime.now()}\n")
     return send_file(pixel, mimetype="image/png")
 
 
